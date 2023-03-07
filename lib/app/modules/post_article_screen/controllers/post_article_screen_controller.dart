@@ -1,23 +1,32 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:news_app_project/app/data/post_article_service.dart';
 
 class PostArticleScreenController extends GetxController {
-  //TODO: Implement PostArticleScreenController
+  FocusNode nodeTwo = FocusNode();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void reqFocus() {
+    nodeTwo.requestFocus();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  final postNewsService = PostArticelService();
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  final postTitle = TextEditingController();
+  final postDesc = TextEditingController();
 
-  void increment() => count.value++;
+  final isLoading = false.obs;
+
+  Future<void> onSubmit() async {
+    isLoading(true);
+    try {
+      final response =
+      await postNewsService.postNews(title: postTitle.text, desc: postDesc.text);
+      Logger().d(response);
+      isLoading(false);
+      Get.back();
+    } catch (e) {
+      isLoading(false);
+    }
+  }
 }

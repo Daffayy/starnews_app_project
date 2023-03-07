@@ -2,123 +2,91 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:logger/logger.dart';
+import 'package:news_app_project/app/modules/post_article_screen/controllers/post_article_screen_controller.dart';
 
 
 import '../../../routes/app_pages.dart';
 
-class ArticlesPostCard extends StatelessWidget {
+class ArticlesPostCard extends GetView<PostArticleScreenController> {
   const ArticlesPostCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color(0xffEDEDED),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 30,top: 50),
-              child: Text('Judul'),
-            ),
-            Container(
-              margin: EdgeInsets.all(24),
-              height: 65,
-              width: 350,
+    return Container(
+      padding: EdgeInsets.all(40),
+      child: ListView(
+        children: [
+          Text('Judul'),
+          const SizedBox(
+            height: 16,
+          ),
+          TextField(
+            controller: controller.postTitle,
+            autofocus: true,
+            onSubmitted: (value){
+              controller.reqFocus();
+            },
+            style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(0xFFD9D9D9),
+                border:
+                OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(15))),
+          ),
+          const SizedBox(
+            height: 28,
+          ),
+          Text('Content Article'),
+          const SizedBox(
+            height: 16,
+          ),
+          TextField(
+            controller: controller.postDesc,
+            focusNode: controller.nodeTwo,
+            style: TextStyle(fontSize: 14, color: Colors.black),
+            maxLines: 10,
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(0xFFD9D9D9),
+                border:
+                OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(15))),
+          ),
+          const SizedBox(
+            height: 150,
+          ),
+          Obx(() => GestureDetector(
+            onTap: () {
+              controller.isLoading.value ? null : controller.onSubmit();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 100,
+                vertical: 20,
+              ),
               decoration: BoxDecoration(
-                color: Color(0xffD9D9D9),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15.0),
+                color: Color(0xFFFD9D9D9),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                    child: Text(
-                      "Qui est esse",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff000000),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Center(
+                child: controller.isLoading.value
+                    ? CircularProgressIndicator()
+                    : Text(
+                  "Post",
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 30,top: 10),
-                  child: Text('Content Article'),
-                ),
-                Container(
-                  margin: EdgeInsets.all(24),
-                  height: 216,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    color: Color(0xffD9D9D9),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20,vertical:
-                        20),
-                        child: Text(
-                          "lsjdakkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-                              "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
-                              "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xff000000),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 268),
-
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 200,right: 20),
-                    height: 65,
-                    width: 301,
-                    decoration: BoxDecoration(
-                      color: Color(0xffD9D9D9),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Obx(() => InkWell(
-                        onTap: (){
-
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                              child: Text(
-                                "Post",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff000000),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          )),
+        ],
+      ),
     );
   }
 }

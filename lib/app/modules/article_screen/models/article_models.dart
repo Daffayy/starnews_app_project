@@ -1,24 +1,26 @@
 import 'dart:convert';
 
-List<ArticleScreen> articleScreenFromJson(String str) => List<ArticleScreen>.from(json.decode(str).map((x) => ArticleScreen.fromJson(x)));
+List<ListNewsModel> listNewsModelFromJson(String str) =>
+    List<ListNewsModel>.from(
+        json.decode(str).map((x) => ListNewsModel.fromJson(x)));
 
-String articleScreenToJson(List<ArticleScreen> data) => json.encode
-  (List<dynamic>.from(data.map((x) => x.toJson())));
+String listNewsModelToJson(List<ListNewsModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ArticleScreen {
-  ArticleScreen({
+class ListNewsModel {
+  ListNewsModel({
     required this.userId,
     required this.id,
     required this.title,
     required this.body,
   });
 
-  int userId;
-  int id;
-  String title;
-  String body;
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
 
-  factory ArticleScreen.fromJson(Map<String, dynamic> json) => ArticleScreen(
+  factory ListNewsModel.fromJson(Map<String, dynamic> json) => ListNewsModel(
     userId: json["userId"],
     id: json["id"],
     title: json["title"],

@@ -27,7 +27,26 @@ class DetailArticleScreenView extends GetView<DetailArticleScreenController> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: Obx(()=> ArticlesCard(title: '',description: '' ,id: '' ,)),
+      body: Container(
+        width: Get.width,
+        margin: EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Color(0xffd9d9d9),borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 5,
+              offset: Offset(0.0, 0.75)
+            ),
+          ]
+        ),
+        child: Obx(()=> ListTile(
+          title: Text(controller.detailNews.value.title ?? '',style: TextStyle
+            (fontWeight: FontWeight.bold,fontSize: 18)),
+          subtitle: Text(controller.detailNews.value.body ?? '',style:
+          TextStyle(color: Colors.black, fontSize: 16)),
+        )),
+      ),
     );
   }
 }

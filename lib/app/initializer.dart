@@ -9,15 +9,16 @@ class Initializer {
     try {
       WidgetsFlutterBinding.ensureInitialized();
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-      _iniGetConnect();
+          overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+      _initGetConnect();
     } catch (err) {
       rethrow;
     }
   }
 
-  static Future<void> _iniGetConnect() async {
+  static Future<void> _initGetConnect() async {
     final connect = GetConnect();
+    Logger().e(connect);
     connect.baseUrl = 'https://jsonplaceholder.typicode.com/';
     Logger().d(connect.baseUrl);
     Get.put(connect);
