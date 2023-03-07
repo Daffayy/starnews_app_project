@@ -49,7 +49,7 @@ class ArticleScreenController extends GetxController {
    getListArticle() async {
     isLoading(true);
     try{
-      final response = await listArticle.value;
+      final response = await ArticleScreenController().getListArticle();
       response.map((v){
         print(v);
         final news = ArticleScreen.fromJson(v as Map<String, dynamic>);
