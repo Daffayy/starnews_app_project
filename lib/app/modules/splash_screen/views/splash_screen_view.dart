@@ -13,7 +13,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       backgroundColor: Color(0xffEDEDED),
       body: Center(
         child: InkWell(
-          onTap: () => Get.toNamed(Routes.ARTICLE_SCREEN),
+          onTap: () => Get.offNamed(Routes.ARTICLE_SCREEN),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
