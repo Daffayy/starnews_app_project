@@ -20,7 +20,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
               Image(image: AssetImage('assets/images/star_1.png')
               ),
               Text(
-                "StarNews",
+                "StarNews ",
                 style: TextStyle(
                 fontSize: 24,
                 color: Color(0xff000000),
